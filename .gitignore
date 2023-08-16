@@ -40,7 +40,7 @@ local.properties
 .settings/
 .loadpath
 .factorypath
-/src/main/resources/rebel.xml
+/pet-clinic-web/src/main/java/com/js/web/resources/rebel.xml
 
 # External tool builders
 .externalToolBuilders/**
