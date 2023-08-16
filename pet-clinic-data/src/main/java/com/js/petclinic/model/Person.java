@@ -1,6 +1,6 @@
 package com.js.petclinic.model;
 
-public class Person {
+public class Person  extends BaseEntity{
     private String name;
     private String surname;
 
