@@ -1,21 +1,27 @@
 package com.js.petclinic.services.map;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import com.js.petclinic.model.BaseEntity;
 
-public abstract class AbstractMapService<T, ID> {
+import java.util.*;
 
-    protected Map<ID, T> map = new HashMap<>();
+public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> {
+
+    protected Map<Long, T> map = new HashMap<>();
 
     T findById(ID id) {
         return map.get(id);
     }
 
-    T save(ID id, T t) {
-        map.put(id, t);
-        return map.get(id);
+    T save(T object) {
+
+        if (object != null) {
+            if (object.getId() == null) {
+                object.setId(getNextId());
+            }
+            map.put(object.getId(), object);
+        }
+
+        return object;
     }
 
     Set<T> findAll() {
@@ -29,4 +35,11 @@ public abstract class AbstractMapService<T, ID> {
     void deleteById(ID id) {
         map.remove(id);
     }
+
+    private Long getNextId() {
+        return map.keySet().isEmpty()
+                ? 1L
+                : Collections.max(map.keySet()) + 1;
+    }
+
 }
